@@ -1,6 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
+
+// Only used in the final example ("Looping over slices revisited") at the bottom of the main() function below.
+type Player struct {
+	Name  string
+	Score int
+}
 
 func main() {
 	fmt.Println("Create a slice and assign values to it (using literal notation):")
@@ -57,6 +66,43 @@ func main() {
 	}
 	fmt.Println(s[:10])
 	fmt.Println()
+
+	fmt.Println("Exercise - Concat slices, without using a for loop:")
+	out := concat([]string{"A", "B"}, []string{"C"})
+	fmt.Println("concat", out) // [A B C]
+	fmt.Println()
+
+	fmt.Println("Exercise - Median:")
+	values := []float64{3, 1, 2} // 2
+	fmt.Println(median(values))
+	values = []float64{3, 1, 2, 4} // 2.5
+	fmt.Println(median(values))
+	fmt.Println("values:", values)
+	fmt.Println()
+
+	fmt.Println("Looping over slices revisited:")
+	players := []Player{
+		{"Rick", 10_000},
+		{"Morty", 11},
+	}
+
+	// Add a bonus.
+	for _, p := range players {
+		p.Score += 100
+	}
+	/* This doesn't show a change to players' scores - Why?
+	It is due to value semantics in Go for "for" loops.
+	With every iteration of the for loop above, we are getting a copy of the player (stored in the p variable) that is inside the slice.
+	So we are incrementing values on the copy, not on the original/source.
+	Remember that Go works "by value" most of the time. */
+	fmt.Println(players)
+
+	/* Solution:
+	Change the values "inside" the slice directly (kind of similar to pointer semantics). */
+	for i := range players {
+		players[i].Score += 100
+	}
+	fmt.Println(players)
 }
 
 // appendInt manually simulates slices (and their underlying arrays) growing to accommodate more data.
@@ -74,4 +120,39 @@ func appendInt(s []int, v int) []int {
 	s = s[:len(s)+1]
 	s[i] = v
 	return s
+}
+
+// concat concatenates two string type slices without using a for loop.
+func concat(s1, s2 []string) []string {
+	s := make([]string, len(s1)+len(s2))
+	copy(s, s1)
+	copy(s[len(s1):], s2)
+	return s
+}
+
+/*
+	median does the following:
+
+- Sort the values in a slice.
+- If there is odd number of values in the slice, return only the middle value from the slice.
+- Else, return the average of the two middle values from the slice.
+*/
+func median(values []float64) float64 {
+	/* BUG - The original sorting code line below will sort the "source" slice passed to this function.
+	This happens since slices are reference types in Go (i.e., slices point to an underlying array in Go).
+	We don't want to do this here.
+	Instead, we want to create a copy of the slice, sort the copied slice, and then return the median values from the copied slice.
+	I.e., we copy here in order not to mutate the input parameter. */
+	// sort.Float64s(values) // This will mutate the "source" slice, but we don't want that here, so we create a copy of the "source" slice instead.
+	vals := make([]float64, len(values))
+	copy(vals, values)
+
+	sort.Float64s(vals)
+	i := len(vals) / 2
+	if len(vals)%2 == 1 {
+		return vals[i]
+	}
+
+	mid := (vals[i-1] + vals[i]) / 2
+	return mid
 }
