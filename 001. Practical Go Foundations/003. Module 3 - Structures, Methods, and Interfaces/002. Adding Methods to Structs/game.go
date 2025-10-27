@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 type Item struct {
 	X int
@@ -12,7 +15,14 @@ const (
 	maxY = 400
 )
 
+type Player struct {
+	Name string
+	Item // Player embeds Item.
+	Keys []string
+}
+
 func main() {
+	// Struct creation and initialization examples.
 	var i Item
 	// It's always good to use the %#v Printf verb for debugging, since it shows types.
 	fmt.Printf("i: %#v\n", i)
@@ -41,6 +51,30 @@ func main() {
 	In general, value semantics is more performant and less memory intensive than pointer semantics (no heap allocation required). */
 	fmt.Println(NewItem(10, 20))
 	fmt.Println(NewItem(10, 2000))
+	fmt.Println()
+
+	// Pointer vs value semantics (and mutating a function parameter).
+	i.Move(10, 20)
+	fmt.Printf("i after move: %#v\n\n", i)
+
+	// Embedding example.
+	p1 := Player{
+		Name: "Parzival",
+	}
+	fmt.Printf("p1: %+v\n", p1)
+	fmt.Println("p1.X:", p1.X) // or "fmt.Println("p1.Item.X:", p1.Item.X)" if you need more specificity.
+	p1.Move(100, 200)
+	fmt.Printf("p1 after move: %+v\n\n", p1)
+
+	/* Exercise:
+	- Add a "Keys" field to Player which is a slice of strings.
+	- Add a "Found(key string)" method to player.
+		- It should err if key is not one of "jade", "copper", or "crystal".
+		- It should add a key only once. */
+	fmt.Println(p1.Found("copper")) // <nil>
+	fmt.Println(p1.Found("copper")) // <nil>
+	fmt.Println(p1.Found("gold"))   // unknown key: "gold"
+	fmt.Println("keys:", p1.Keys)   // keys: [copper]
 }
 
 func NewItem(x, y int) (*Item, error) {
@@ -61,4 +95,38 @@ func NewItem(x, y int) (*Item, error) {
 	Run "go run -gcflags=-m game.go" (or "go build -gcflags=-m") in the terminal to see a confirmation of this.
 	Again, try to use value semantics wherever possible since value semantics is more performant and less memory intensive than pointer semantics. */
 	return &i, nil
+}
+
+/*
+Move moves i by delta x and delta y.
+
+"i" is called the "receiver".
+i is a pointer receiver.
+Value vs pointer receiver
+- In general use value semantics.
+- Try to keep the same semantics on all methods.
+- But there are some cases when you must use a pointer receiver:
+  - If you have a lock field.
+  - If you need to mutate the struct (like in the function below).
+  - Decoding/unmarshalling.
+*/
+func (i *Item) Move(dx, dy int) {
+	i.X += dx
+	i.Y += dy
+}
+
+// Found verifies if a valid key was found for a player or not.
+func (p *Player) Found(key string) error {
+	switch key {
+	case "copper", "jade", "crystal":
+		// OK
+	default:
+		return fmt.Errorf("unknown key %q", key)
+	}
+
+	if !slices.Contains(p.Keys, key) {
+		p.Keys = append(p.Keys, key)
+	}
+
+	return nil
 }
