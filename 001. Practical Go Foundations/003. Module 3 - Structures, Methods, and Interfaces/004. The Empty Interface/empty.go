@@ -6,9 +6,10 @@ func main() {
 	var a any // any used to be the empty interface, i.e. interface{}, before Go version 1.18 when generics (and any) were added to Go.
 
 	/* In the two examples below we are effectively bypassing the Go type system.
-	So, the first RULE OF THUMB is: Don't use any (i.e., the empty interface).
+	So, the RULE OF THUMB is: Don't use any (i.e., empty interfaces).
+	Instead, use generics if you can.
 
-	But there are two exceptions:
+	But there are two exceptions for using any/the empty interface:
 	- Serialization
 	- Printing */
 	a = 7
