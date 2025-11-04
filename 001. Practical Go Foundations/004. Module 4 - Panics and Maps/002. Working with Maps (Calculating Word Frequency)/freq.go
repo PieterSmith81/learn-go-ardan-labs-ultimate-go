@@ -100,7 +100,7 @@ func mapDemo() {
 	n := heros["Batman"]
 	fmt.Println(n)
 
-	// Access the value of a key that doesn't exist in a map (returns the zero value for that key's type).
+	// Access the value of a key that doesn't exist in a map (returns the zero value for the map's value type).
 	n = heros["Aquaman"] // Returns an empty string ("").
 	fmt.Printf("%q\n", n)
 
