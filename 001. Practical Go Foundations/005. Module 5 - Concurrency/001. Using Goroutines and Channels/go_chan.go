@@ -30,9 +30,9 @@ func main() {
 	*/
 	ch := make(chan int)
 	go func() {
-		ch <- 7 // Send to channel.
+		ch <- 7 // Send to a channel.
 	}()
-	v := <-ch // Receive from channel.
+	v := <-ch // Receive from a channel.
 	fmt.Println(v)
 	fmt.Println()
 
@@ -57,13 +57,13 @@ func sleepSort(values []int) []int {
 	for _, n := range values {
 		go func() {
 			time.Sleep(time.Duration(n) * time.Millisecond)
-			ch <- n // Send to channel.
+			ch <- n // Send to a channel.
 		}()
 	}
 
 	var out []int
 	for range values {
-		n := <-ch // Receive from channel.
+		n := <-ch // Receive from a channel.
 		out = append(out, n)
 	}
 	return out
