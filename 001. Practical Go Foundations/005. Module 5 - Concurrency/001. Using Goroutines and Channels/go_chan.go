@@ -28,6 +28,7 @@ func main() {
 				- I.e., data has been sent onto the channel, which is a blocking operation, unless there is a "receive" to take that data off the channel.
 				- Hence the need for the "send" below to be in its own goroutine (inside a self-executing anonymous function).
 	*/
+	// Basic implementation of channels.
 	ch := make(chan int)
 	go func() {
 		ch <- 7 // Send to a channel.
