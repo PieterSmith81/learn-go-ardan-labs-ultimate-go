@@ -22,11 +22,12 @@ func main() {
 		Channels
 
 		Channel semantics:
-			- Send/receive to/from a channel will block until the opposite operation occurs.
+			- Send/receive to/from a channel will block until the opposite operation occurs(*).
 				- Guarantee of delivery (there should always be a "receive" waiting for the "send" on the channel).
 				- Or else you will receive the common "fatal error: all goroutines are asleep - deadlock!" error.
 				- I.e., data has been sent onto the channel, which is a blocking operation, unless there is a "receive" to take that data off the channel.
 				- Hence the need for the "send" below to be in its own goroutine (inside a self-executing anonymous function).
+				- * A buffered channel has "n" non-blocking sends (this affects only sends, not receives, and you lose the guarantee of delivery).
 			- Receiving from a closed channel will return the zero value for the channel (of whatever type that channel is storing) without blocking (or panicking).
 				- You can use the comma, ok idiom to see if a channel is closed or not when it has a zero value.
 			- Sending to a closed channel will panic.
