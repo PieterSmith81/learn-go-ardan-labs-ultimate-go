@@ -1,5 +1,5 @@
-# Ardan Labs' Ultimate Go
+# Ardan Labs Ultimate Go
 
-## My Source Code
+## My Solutions
 
-My source code from Ardan Labs' Ultimate Go self-training course.
+My solutions, demos, and example code from the Ardan Labs Ultimate Go self-training course.
