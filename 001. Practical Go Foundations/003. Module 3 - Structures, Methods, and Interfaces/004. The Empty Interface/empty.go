@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	var a any // any used to be the empty interface, i.e. interface{}, before Go version 1.18 when generics (and any) were added to Go.
+	var a any // any used to be the empty interface, i.e. interface{}, before Go version 1.18 when generics (and any) were added to Go..
 
 	/* In the two examples below we are effectively bypassing the Go type system.
 	So, the RULE OF THUMB is: Don't use any (i.e., empty interfaces).
