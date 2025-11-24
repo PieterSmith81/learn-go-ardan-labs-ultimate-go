@@ -14,7 +14,7 @@ const (
 
 func main() {
 	var i Item
-	// It's always good to use the %#v Printf verb for debugging, since it shows types.
+	// It's always good to use the %#v Printf verb for debugging, since it shows types..
 	fmt.Printf("i: %#v\n", i)
 
 	// You must specify all the fields in the struct if assigning values only.
