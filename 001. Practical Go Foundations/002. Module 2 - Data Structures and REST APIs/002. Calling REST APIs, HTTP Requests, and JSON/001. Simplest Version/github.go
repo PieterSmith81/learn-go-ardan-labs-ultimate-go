@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Given a GitHub user login, return name and number of public repos.
+// Given a GitHub user login, return name and number of public repos..
 
 func main() {
 	resp, err := http.Get("https://api.github.com/users/ardanlabs")
