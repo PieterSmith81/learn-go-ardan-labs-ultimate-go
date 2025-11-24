@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Given a GitHub user login, return name and number of public repos..
+// Given a GitHub user login, return name and number of public repos.
 
 func main() {
 	/* JSON <-> GO
