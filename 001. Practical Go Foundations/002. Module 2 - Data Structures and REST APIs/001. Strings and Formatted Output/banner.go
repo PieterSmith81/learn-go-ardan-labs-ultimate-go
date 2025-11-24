@@ -12,7 +12,7 @@ func main() {
 	fmt.Println()
 
 	// Note: The len() function in Go calculates the length of a string using UTF-8 encoding length,
-	// not necessarily the number of characters you see on the screen.
+	// not necessarily the number of characters you see on the screen..
 	s := "G♡!"
 	fmt.Println("len:", len(s))
 	fmt.Println("s[1]:", s[1])
