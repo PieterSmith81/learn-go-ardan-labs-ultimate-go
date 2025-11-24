@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	// Basic implementation of goroutines..
+	// Basic implementation of goroutines.
 	go fmt.Println("goroutine")
 	fmt.Println("main")
 
