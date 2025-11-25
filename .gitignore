@@ -5,4 +5,5 @@ dist
 .vscode
 .DS_Store
 .prettierrc
+__debug*
 001. Practical Go Foundations/000. Course's GitHub Repository Download - 20251009/
