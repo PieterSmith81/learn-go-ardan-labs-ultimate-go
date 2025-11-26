@@ -1,0 +1,15 @@
+# The tests in this file can be run in VS Code by using the "REST Client" VS Code extension by Huachao Mao.
+
+### Health
+GET http://localhost:8080/health
+# Or you can use "curl http://localhost:8080/health" if you want to use the command line.
+
+### Tokenize
+POST http://localhost:8080/tokenize
+
+Who's on first?
+# Or you can use "curl -d "Who's on first?" http://localhost:8080/tokenize" if you want to use the command line.
+
+### Stem
+GET http://localhost:8080/stem/working
+# Or you can use "curl http://localhost:8080/stem/working" if you want to use the command line.
