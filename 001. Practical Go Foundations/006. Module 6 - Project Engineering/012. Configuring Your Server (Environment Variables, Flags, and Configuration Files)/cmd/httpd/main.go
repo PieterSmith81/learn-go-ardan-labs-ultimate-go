@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"expvar" // Navigate to http://localhost:8080/debug/vars to view the output of the expvar package.
+	"flag"
 	"fmt"
 	"io"
 	"log/slog"
@@ -13,7 +14,56 @@ import (
 	"nlp/stemmer"
 )
 
+/*
+Configuration.
+	- Order of preference (so, "command line" has the highest preference, followed by "environment variables", etc.):
+		- defaults < configuration file < environment variables < command line.
+
+	- Configuration file:
+		- Yaml, TOML, etc. (not in the Go standard library, so you'll have to use external packages to use these file types - JSON is not recommended as a configuration file format).
+
+	- Environment variables:
+		- os.Getenv
+
+	- Command line:
+		- flag package.
+
+	- We also have external configuration packages, libraries, and frameworks like:
+		- The Ardan Labs configuration package - https://pkg.go.dev/github.com/ardanlabs/conf/v3
+		- Viper (for configuration).
+		- Cobra (for command line).
+			- Note that Viper and Cobra can work together.
+
+	- In this project, we are just using standard Go data structures (as per the config struct below) to store our application's configuration.
+
+	- IMPORTANT:
+		- You should always validate your configuration before doing anything else.
+		- You should also always do a health check on your server before doing anything else.
+		- Doing these two steps first will save you a lot of trouble down the road. */
+
+var config struct {
+	Addr string
+}
+
 func main() {
+	// Configuration.
+	// Command line/environment variable configuration.
+	config.Addr = os.Getenv("NLP_ADDR")
+	if config.Addr == "" {
+		config.Addr = ":8080"
+	}
+	// Flag configuration.
+	flag.StringVar(&config.Addr, "addr", config.Addr, "Address to listen on")
+	flag.Parse()
+
+	// TODO: Validate configuration.
+
+	// Health check.
+	if err := health(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error during initial health check - %s\n", err)
+		os.Exit(1)
+	}
+
 	/* Logging.
 	Here we use a technique called "dependency injection" for logging.
 	You can also use dependency injection for, for example, your database connection, a connection to an authentication handler, etc.
