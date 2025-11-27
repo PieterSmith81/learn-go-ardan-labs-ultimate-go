@@ -47,12 +47,22 @@ var config struct {
 
 func main() {
 	// Configuration.
-	// Command line/environment variable configuration.
+	/* Command line/environment variable configuration.
+	You can run the server on its default port (port 8080), by running the following command in the terminal:
+	"go run ./cmd/httpd"
+	You can then manually check that the server is running by navigating to: http://localhost:8080/health
+
+	You can also start the server on a different port (for example, port 9999), by using the following command:
+	"NLP_ADDR=:9999 go run ./cmd/httpd"*/
 	config.Addr = os.Getenv("NLP_ADDR")
 	if config.Addr == "" {
 		config.Addr = ":8080"
 	}
-	// Flag configuration.
+
+	/* Flag configuration.
+	Or you can overwrite the server's starting port, as per the command line flag implemented below.
+	So, for example, by running the following command in the terminal:
+	"NLP_ADDR=:9999 go run ./cmd/httpd -addr :8888" */
 	flag.StringVar(&config.Addr, "addr", config.Addr, "Address to listen on")
 	flag.Parse()
 
@@ -79,8 +89,8 @@ func main() {
 	http.HandleFunc("GET /stem/{word}", api.stemHandler)
 
 	// Spin up the web server.
-	addr := ":8080"
-	if err := http.ListenAndServe(addr, nil); err != nil {
+	api.log.Info("server starting", "address", config.Addr) // Logging.
+	if err := http.ListenAndServe(config.Addr, nil); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 		os.Exit(1)
 	}
