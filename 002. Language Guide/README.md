@@ -2,7 +2,7 @@
 
 ## My Solutions
 
-My solutions, demos, and example code from the Ardan Labs Ultimate Go - Language Guide course..
+My solutions, demos, and example code from the Ardan Labs Ultimate Go - Language Guide course.
 
 ## Course GitHub Repository
 
