@@ -39,6 +39,6 @@ func main() {
 	// Perform a type conversion.
 	pi := float32(3.14)
 
-	// Display the value of that variable.
-	fmt.Println(pi)
+	// Display the type and value of that variable.
+	fmt.Printf("%T - %v\n", pi, pi)
 }
