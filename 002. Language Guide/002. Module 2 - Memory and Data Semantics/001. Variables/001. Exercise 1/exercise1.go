@@ -6,9 +6,8 @@
 // converting the literal value of Pi (3.14).
 package main
 
-import "fmt"
-
 // Add imports.
+import "fmt"
 
 // main is the entry point for the application.
 func main() {
