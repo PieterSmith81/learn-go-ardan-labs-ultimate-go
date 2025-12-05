@@ -10,6 +10,6 @@ The GitHub repository for this course (including some great Go-related links) ca
 https://github.com/ardanlabs/gotraining
 
 The specific exercises, answers, and topics for this course can be found at the following locations:
-https://github.com/ardanlabs/gotraining/tree/master/topics/go
-and
-https://github.com/ardanlabs/gotraining/tree/master/topics/go/language
+
+- https://github.com/ardanlabs/gotraining/tree/master/topics/go
+- https://github.com/ardanlabs/gotraining/tree/master/topics/go/language
