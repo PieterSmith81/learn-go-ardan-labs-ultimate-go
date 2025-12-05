@@ -6,5 +6,10 @@ My solutions, demos, and example code from the Ardan Labs Ultimate Go - Language
 
 ## Course GitHub Repository
 
-The original GitHub repository for this course (including some great Go-related links) can be found at the following location:  
+The GitHub repository for this course (including some great Go-related links) can be found at the following location:  
 https://github.com/ardanlabs/gotraining
+
+The specific exercises, answers, and topics for this course can be found at the following locations:
+https://github.com/ardanlabs/gotraining/tree/master/topics/go
+and
+https://github.com/ardanlabs/gotraining/tree/master/topics/go/language
