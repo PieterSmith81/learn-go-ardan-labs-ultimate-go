@@ -10,8 +10,8 @@ const (
 	// Declare a constant named server of kind string and assign a value.
 	server = "server001"
 
-	// Declare a constant named port of type integer and assign a value.
-	port = 443
+	// Declare a constant named port of type "integer 16" and assign a value.
+	port int16 = 443
 )
 
 func main() {
