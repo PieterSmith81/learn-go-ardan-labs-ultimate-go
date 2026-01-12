@@ -26,7 +26,7 @@ func main() {
 	use the value semantics version of the for range loop.
 	So these two "movies" values and addresses are copies of each element in the original movies array.
 
-	For more on the two versions/flavours (the value semantics and pointer semantics versions) of the for range loop,
+	For more on the two versions/forms/flavours (the value semantics and pointer semantics versions) of the for range loop,
 	see the "Arrays pt.3 (Range Mechanics)" lesson in the "Ultimate Go - Language Guide" Ardan Labs course. */
 	for i, movie := range movies {
 		fmt.Printf("%s\t\t\t%v\t\t\t%s\t\t\t%v\n", movie, &movie, movies[i], &movies[i])
